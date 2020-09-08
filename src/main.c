@@ -80,13 +80,6 @@ int main(int argc, char* argv[]){
 		}
 	}
 
-	int i;
-	Imagen* img = (Imagen*)malloc(sizeof(Imagen));
-	if(img == NULL){
-		printf("Fallo en malloc de img %d\n", i);
-		return 1;
-	}
-
 	int** filtro = abrirFiltro(m);
 	if(filtro == NULL){
 		return 1;
@@ -98,11 +91,18 @@ int main(int argc, char* argv[]){
 		strcat(salida, "|---------------|----------------|\n");
 	}
 
+	int i;
+	Imagen* img = (Imagen*)malloc(sizeof(Imagen));
 	char* result;
 	char* nombre;
 
 	for(i = 1; i <= c; i++){
 		int nb;
+		if(img == NULL){
+			printf("Fallo en malloc de img %d\n", i);
+			return 1;
+		}
+		
 		struct jpeg_error_mgr jerr;
 		//1° leer la imagen
 		leerJpg(img, i, &jerr);
